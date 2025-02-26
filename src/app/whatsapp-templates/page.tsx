@@ -4,7 +4,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { WhatsappTemplate } from "../api/whatsapp/templates/get-templates/route";
 import { Card } from "@/components/card/card";
-import { ModalSendMessage } from "@/components/modais/save-challenger/modal-save-challenger";
 import { useModalSendMessage } from "@/hook/use-modal-send-message/use-modal-send-message";
 
 export default function WhatsappTemplates() {
@@ -45,8 +44,6 @@ export default function WhatsappTemplates() {
           </div>
         </section>
       </div>
-
-      <ModalSendMessage />
     </main>
   );
 }
