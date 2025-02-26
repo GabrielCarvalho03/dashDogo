@@ -43,12 +43,15 @@ export default function UserDetails() {
   const getuserInf = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(
-        `/api/payment/getPayment/${userObj.phone}`
-      );
+      const response = await axios.post(`/api/payment/getPayment`, {
+        userNumber: userObj.phone,
+      });
 
-      const responseHistoric = await axios.get(
-        `/api/historic/getHistoricChat/${userObj.phone}`
+      const responseHistoric = await axios.post(
+        `/api/historic/getHistoricChat`,
+        {
+          userNumber: userObj.phone,
+        }
       );
 
       if (response.data && responseHistoric.data) {

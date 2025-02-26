@@ -31,7 +31,7 @@ export const useUseChallenger = create<IUserChallanger>((set) => ({
   handleDeleteChallenger: async (id: string) => {
     const { handleGetChallangers } = useUseChallenger.getState();
 
-    const response = await axios.delete(`/api/challenger/${id}`);
+    const response = await axios.post(`/api/challenger/delete`, { id });
     console.log(response.data);
 
     await handleGetChallangers();

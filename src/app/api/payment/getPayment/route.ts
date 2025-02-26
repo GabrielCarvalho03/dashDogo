@@ -1,11 +1,9 @@
 import { db } from "@/services/firebase";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { userNumber: string } }
-) {
-  const { userNumber } = await params;
+export async function POST(request: NextRequest) {
+  const body = await request.json();
+  const { userNumber } = body;
 
   const payments = await db
     .collection("payments")
