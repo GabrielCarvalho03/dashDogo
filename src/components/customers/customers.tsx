@@ -9,6 +9,8 @@ import { useRouter } from "next/navigation";
 import { UseUserDetails } from "@/hook/use-user-details/use-user-details";
 import { UserPlan } from "../user-plan/user-plan";
 import { Loader } from "../Loader/loader";
+import { Filter } from "../filter/filter";
+import moment from "moment";
 
 type Customer = {
   name: string;
@@ -21,7 +23,13 @@ type Customer = {
 
 export function Customers() {
   const router = useRouter();
-  const { customers, loadingGetUser, handleGetUser } = useUser();
+  const {
+    customers,
+    setCustomers,
+    loadingGetUser,
+    handleGetUser,
+    handleOrderBy,
+  } = useUser();
   const { handleChangeUserObj } = UseUserDetails();
   // const [customers, setCustomers] = useState<Customer[]>([]);
 
@@ -50,6 +58,18 @@ export function Customers() {
       </div>
 
       <section className="w-[95%] max-h-[650px]  overflow-y-auto  ml-10 mt-10  border-0.5 rounded-lg border-bg-gray-ligth ">
+        <div className="px-6 py-2 flex justify-between">
+          <Filter
+            onChange={(e) => {
+              //@ts-ignore
+              handleOrderBy({ order: e.target.value });
+            }}
+            title="Ordernar por"
+            options={["Mais recentes", "Mais antigos"]}
+            defaultValue="Mais recentes"
+          />
+        </div>
+
         <div className="p-6 pb-10 max-h-[600px]">
           <table className="w-full bg-bg-primary cursor-pointer rounded-lg overflow-hidden border-separate border-spacing-y-3">
             <thead>
@@ -61,7 +81,7 @@ export function Customers() {
                   Número
                 </th>
                 <th className="text-left px-4 text-gray-400 font-light">
-                  Email
+                  Cadastro
                 </th>
                 <th className="text-left px-4 text-gray-400 font-light">
                   Plano
@@ -83,9 +103,7 @@ export function Customers() {
                   </td>
                   <td className="p-4 text-white">{customer.phone}</td>
                   <td className="p-4 text-white">
-                    {customer.email !== ""
-                      ? customer.email
-                      : "ainda nao adicionado"}
+                    {moment(customer.createdAt).format("DD/MM/YYYY")}
                   </td>
                   <td className="p-4">
                     <UserPlan plan={customer.plan} />

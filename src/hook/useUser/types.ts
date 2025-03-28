@@ -13,4 +13,10 @@ export interface IUser {
   customers: userObject[];
   setCustomers: (customers: userObject[]) => void;
   handleGetUser: () => void;
+
+  handleOrderBy: ({
+    order,
+  }: {
+    order: "Mais recentes" | "Mais antigos";
+  }) => void;
 }

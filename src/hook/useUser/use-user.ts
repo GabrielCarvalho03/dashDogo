@@ -13,12 +13,40 @@ export const useUser = create<IUser>((set) => ({
     try {
       const response = await fetch("/api/users/getusers");
       const data = await response.json();
-      setCustomers(data);
-      console.log("deu certo", data);
+
+      const filter = [...data].sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
+      setCustomers(filter);
     } catch (error) {
       console.error("Error fetching customers:", error);
     } finally {
       setLoadingGetUser(false);
+    }
+  },
+
+  handleOrderBy: ({ order }) => {
+    const { customers, setCustomers } = useUser.getState();
+
+    if (order === "Mais antigos") {
+      const sortedAsc = [...customers].sort(
+        (a, b) =>
+          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+      );
+
+      setCustomers(sortedAsc);
+      return;
+    }
+
+    if (order === "Mais recentes") {
+      const sortedDesc = [...customers].sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
+
+      setCustomers(sortedDesc);
+      return;
     }
   },
 }));
