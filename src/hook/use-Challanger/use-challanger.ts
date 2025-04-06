@@ -1,40 +1,39 @@
 import { create } from "zustand";
-import { challengeObject, IUserChallanger } from "./types";
+import { lessonObject, IUserLesson } from "./types";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-export const useUseChallenger = create<IUserChallanger>((set) => ({
-  challenger: [] as challengeObject[],
-  setChallanger: (challanger) => set({ challenger: challanger }),
-  loadingGetChallanger: false,
-  setloadingGetChallanger: (loading) => set({ loadingGetChallanger: loading }),
+export const useUseLesson = create<IUserLesson>((set) => ({
+  lesson: [] as lessonObject[],
+  setLesson: (lesson) => set({ lesson: lesson }),
+  loadingGetLesson: false,
+  setloadingGetLesson: (loading) => set({ loadingGetLesson: loading }),
 
-  ModalSaveChallenger: false,
-  setModalSaveChallenger: (value) => set({ ModalSaveChallenger: value }),
-  handleSaveChallenger: async (challenger: challengeObject) => {
+  ModalSaveLesson: false,
+  setModalSaveLesson: (value) => set({ ModalSaveLesson: value }),
+  handleSaveLesson: async (challenger: lessonObject) => {
     console.log("data", challenger);
 
-    const response = await axios.post("/api/challenger/add", challenger);
+    const response = await axios.post("/api/lesson/add", challenger);
   },
 
-  handleGetChallangers: async () => {
-    const { setChallanger, setloadingGetChallanger } =
-      useUseChallenger.getState();
+  handleGetLesson: async () => {
+    const { setLesson, setloadingGetLesson } = useUseLesson.getState();
 
-    setloadingGetChallanger(true);
-    const response = await axios.get("/api/challenger/get");
+    setloadingGetLesson(true);
+    const response = await axios.get("/api/lesson/get");
 
-    setloadingGetChallanger(false);
-    setChallanger(response.data);
+    setloadingGetLesson(false);
+    setLesson(response.data);
   },
 
-  handleDeleteChallenger: async (id: string) => {
-    const { handleGetChallangers } = useUseChallenger.getState();
+  handleDeleteLesson: async (id: string) => {
+    const { handleGetLesson } = useUseLesson.getState();
 
-    const response = await axios.post(`/api/challenger/delete`, { id });
+    const response = await axios.post(`/api/lesson/delete`, { id });
     console.log(response.data);
 
-    await handleGetChallangers();
+    await handleGetLesson();
     toast.success("Desafio deletado com sucesso!");
   },
 }));

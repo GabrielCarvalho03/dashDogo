@@ -3,7 +3,7 @@
 import { Customers } from "@/components/customers/customers";
 import { Menu } from "@/components/menu/manu";
 import { useUserDashboard } from "@/hook/use-dashboard/user-dashboard";
-import Challenger from "./challenger/page";
+import Challenger from "./lesson/page";
 
 export default function Dashboard() {
   const { selecDashboard } = useUserDashboard();
