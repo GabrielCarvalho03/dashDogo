@@ -1,10 +1,8 @@
 import { z } from "zod";
 
-export const ChallengerSchema = z.object({
+export const LessonSchema = z.object({
   title: z.string(),
-  description: z.string(),
-  type: z.enum(["audio", "video", "text"]),
-  xp: z.string(),
+  nivel: z.enum(["basic", "intermediate", "advanced"]),
 });
 
-export type ChallengerData = z.infer<typeof ChallengerSchema>;
+export type LessonData = z.infer<typeof LessonSchema>;

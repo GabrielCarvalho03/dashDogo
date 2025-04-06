@@ -1,21 +1,28 @@
-export type challengeObject = {
-  id: string;
-  title: string;
-  description: string;
-  type: "audio" | "video" | "text";
+export type moduleProps = {
+  lessons: {
+    id: string;
+    phrases: string[];
+  }[];
 };
 
-export interface IUserChallanger {
-  loadingGetChallanger: boolean;
-  setloadingGetChallanger: (loading: boolean) => void;
+export type lessonObject = {
+  id: string;
+  title: string;
+  nivel: "basic" | "intermediate" | "advanced";
+  modules: moduleProps[];
+};
 
-  ModalSaveChallenger: boolean;
-  setModalSaveChallenger: (value: boolean) => void;
+export interface IUserLesson {
+  loadingGetLesson: boolean;
+  setloadingGetLesson: (loading: boolean) => void;
 
-  challenger: challengeObject[];
-  setChallanger: (challanger: challengeObject[]) => void;
-  handleSaveChallenger: (challenger: challengeObject) => Promise<void>;
+  ModalSaveLesson: boolean;
+  setModalSaveLesson: (value: boolean) => void;
 
-  handleGetChallangers: () => Promise<void>;
-  handleDeleteChallenger: (id: string) => Promise<void>;
+  lesson: lessonObject[];
+  setLesson: (Lesson: lessonObject[]) => void;
+  handleSaveLesson: (Lesson: lessonObject) => Promise<void>;
+
+  handleGetLesson: () => Promise<void>;
+  handleDeleteLesson: (id: string) => Promise<void>;
 }
